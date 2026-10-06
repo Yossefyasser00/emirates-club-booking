@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Court {
+  id               String    @id @default(uuid())
+  name             String
+  type             String    // "FIVE_A_SIDE" | "SEVEN_A_SIDE"
+  pricePerHour     Float
+  peakPricePerHour Float
+  description      String
+  image            String
+  features         String    // JSON or comma separated
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  bookings         Booking[]
+  slots            Slot[]
+}
+
+model Slot {
+  id          String   @id @default(uuid())
+  courtId     String
+  court       Court    @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  date        String   // YYYY-MM-DD
+  startTime   String   // HH:mm (e.g., "17:00")
+  endTime     String   // HH:mm (e.g., "18:00")
+  isBlocked   Boolean  @default(false)
+  blockReason String?
+  createdAt   DateTime @default(now())
+}
+
+model Booking {
+  id                 String    @id @default(uuid())
+  bookingCode        String    @unique
+  courtId            String
+  court              Court     @relation(fields: [courtId], references: [id])
+  customerName       String
+  customerPhone      String
+  customerEmail      String?
+  date               String    // YYYY-MM-DD
+  startTime          String    // HH:mm
+  endTime            String    // HH:mm
+  durationHours      Int       @default(1)
+  totalAmount        Float
+  depositAmount      Float
+  discountAmount     Float     @default(0)
+  promoCode          String?
+  status             String    @default("PENDING") // PENDING, CONFIRMED, CANCELLED, COMPLETED, REJECTED
+  isRecurring        Boolean   @default(false)
+  recurringPattern   String?
+  notes              String?
+  cancellationReason String?
+  payment            Payment?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Payment {
+  id                   String    @id @default(uuid())
+  bookingId            String    @unique
+  booking              Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  method               String    // "VODAFONE_CASH" | "INSTAPAY" | "CASH_ON_ARRIVAL"
+  amount               Float
+  transactionReference String?
+  receiptImage         String?
+  status               String    @default("PENDING_VERIFICATION") // PENDING_VERIFICATION, VERIFIED, REJECTED
+  verifiedAt           DateTime?
+  createdAt            DateTime  @default(now())
+}
+
+model PromoCode {
+  id              String    @id @default(uuid())
+  code            String    @unique
+  discountPercent Float     @default(0)
+  discountAmount  Float     @default(0)
+  minBookingHours Int       @default(1)
+  maxUses         Int       @default(100)
+  usedCount       Int       @default(0)
+  isActive        Boolean   @default(true)
+  expiresAt       DateTime?
+  createdAt       DateTime  @default(now())
+}
+
+model Complaint {
+  id           String   @id @default(uuid())
+  ticketNumber String   @unique
+  customerName String
+  customerPhone String
+  bookingCode  String?
+  subject      String
+  message      String
+  status       String   @default("NEW") // NEW, IN_PROGRESS, RESOLVED
+  adminReply   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Setting {
+  id                     String  @id @default("global")
+  clubName               String  @default("cLub مجمع الملاعب")
+  vodafoneCashNumber     String  @default("01012345678")
+  instaPayHandle         String  @default("club_stadium@instapay")
+  depositPercentage      Float   @default(30)
+  fixedDepositAmount     Float   @default(100)
+  useFixedDeposit        Boolean @default(true)
+  openHour               Int     @default(10) // 10:00 AM
+  closeHour              Int     @default(26) // 02:00 AM (next day)
+  cancellationHoursLimit Int     @default(6)
+  autoApprove            Boolean @default(false)
+  announcement           String?
+}
