@@ -119,7 +119,14 @@ export interface Settings {
   cancellationHoursLimit: number;
   autoApprove: boolean;
   announcement?: string | null;
+  footballCategoryTitle?: string | null;
+  footballCategoryDesc?: string | null;
+  footballCategoryImage?: string | null;
+  padelCategoryTitle?: string | null;
+  padelCategoryDesc?: string | null;
+  padelCategoryImage?: string | null;
 }
+
 
 export interface AnalyticsSummary {
   totalBookings: number;

@@ -47,6 +47,12 @@ router.put('/', async (req: Request, res: Response) => {
       cancellationHoursLimit,
       autoApprove,
       announcement,
+      footballCategoryTitle,
+      footballCategoryDesc,
+      footballCategoryImage,
+      padelCategoryTitle,
+      padelCategoryDesc,
+      padelCategoryImage,
     } = req.body;
 
     const settings = await prisma.setting.upsert({
@@ -63,6 +69,12 @@ router.put('/', async (req: Request, res: Response) => {
         ...(cancellationHoursLimit !== undefined ? { cancellationHoursLimit: Number(cancellationHoursLimit) } : {}),
         ...(autoApprove !== undefined ? { autoApprove: Boolean(autoApprove) } : {}),
         ...(announcement !== undefined ? { announcement } : {}),
+        ...(footballCategoryTitle !== undefined ? { footballCategoryTitle } : {}),
+        ...(footballCategoryDesc !== undefined ? { footballCategoryDesc } : {}),
+        ...(footballCategoryImage !== undefined ? { footballCategoryImage } : {}),
+        ...(padelCategoryTitle !== undefined ? { padelCategoryTitle } : {}),
+        ...(padelCategoryDesc !== undefined ? { padelCategoryDesc } : {}),
+        ...(padelCategoryImage !== undefined ? { padelCategoryImage } : {}),
       },
       create: {
         id: 'global',
@@ -77,6 +89,12 @@ router.put('/', async (req: Request, res: Response) => {
         cancellationHoursLimit: Number(cancellationHoursLimit) || 6,
         autoApprove: Boolean(autoApprove),
         announcement: announcement || null,
+        footballCategoryTitle: footballCategoryTitle || 'ملاعب كرة القدم (خماسي وسباعي)',
+        footballCategoryDesc: footballCategoryDesc || '4 ملاعب متطورة (سانتياغو، ويمبلي، كامب نو، الأنفيلد) مجهزة بنجيل تركي معتمد FIFA، إضاءة ليلية LED، غرف تبديل وتكييف.',
+        footballCategoryImage: footballCategoryImage || '/football-pitch.jpg',
+        padelCategoryTitle: padelCategoryTitle || 'ملعب بادل تنس بانوراما (Padel Court)',
+        padelCategoryDesc: padelCategoryDesc || 'ملعب بادل زجاجي بانورامي كامل بمواصفات إيطالية عالمية، مع أرضيات Mondo معتمدة، مضارب وكرات مجانية وكافيه ومشروبات VIP.',
+        padelCategoryImage: padelCategoryImage || '/padel-blue.jpg',
       },
     });
 

@@ -114,4 +114,11 @@ model Setting {
   cancellationHoursLimit Int     @default(6)
   autoApprove            Boolean @default(false)
   announcement           String?
+  footballCategoryTitle  String? @default("ملاعب كرة القدم (خماسي وسباعي)")
+  footballCategoryDesc   String? @default("4 ملاعب متطورة (سانتياغو، ويمبلي، كامب نو، الأنفيلد) مجهزة بنجيل تركي معتمد FIFA، إضاءة ليلية LED، غرف تبديل وتكييف.")
+  footballCategoryImage  String? @default("/football-pitch.jpg")
+  padelCategoryTitle     String? @default("ملعب بادل تنس بانوراما (Padel Court)")
+  padelCategoryDesc      String? @default("ملعب بادل زجاجي بانورامي كامل بمواصفات إيطالية عالمية، مع أرضيات Mondo معتمدة، مضارب وكرات مجانية وكافيه ومشروبات VIP.")
+  padelCategoryImage     String? @default("/padel-blue.jpg")
 }
+

@@ -900,6 +900,85 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToHome, on
                 </div>
               </div>
 
+              <div className="glass-card p-5 sm:p-6 rounded-3xl border-sky-950/70 bg-[#0a1532]/70 space-y-5">
+                <div className="border-b border-sky-950 pb-2">
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">🎨 نصوص وأوصاف أقسام الحجز في الموقع (Categories)</h3>
+                  <p className="text-xs text-slate-400 mt-0.5">تحكم في العناوين والوصف والصور المعروضة للعملاء في الصفحة الرئيسية.</p>
+                </div>
+
+                {/* Football Category Section */}
+                <div className="p-4 rounded-2xl bg-[#070e24]/80 border border-sky-900/40 space-y-3">
+                  <div className="flex items-center gap-2 text-sky-400 font-bold text-xs">
+                    <span className="text-base">⚽</span>
+                    <span>قسم ملاعب كرة القدم (Football Section)</span>
+                  </div>
+                  <div>
+                    <label className="text-xs text-slate-300 mb-1 block font-semibold">عنوان القسم</label>
+                    <input
+                      type="text"
+                      value={settings?.footballCategoryTitle || 'ملاعب كرة القدم (خماسي وسباعي)'}
+                      onChange={(e) => setSettings(s => s ? { ...s, footballCategoryTitle: e.target.value } : s)}
+                      className="w-full bg-[#0a1532] border border-sky-950 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-sky-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-slate-300 mb-1 block font-semibold">نص الوصف المعروض للعملاء</label>
+                    <textarea
+                      rows={3}
+                      value={settings?.footballCategoryDesc || '4 ملاعب متطورة (سانتياغو، ويمبلي، كامب نو، الأنفيلد) مجهزة بنجيل تركي معتمد FIFA، إضاءة ليلية LED، غرف تبديل وتكييف.'}
+                      onChange={(e) => setSettings(s => s ? { ...s, footballCategoryDesc: e.target.value } : s)}
+                      placeholder="اكتب وصف ملاعب كرة القدم هنا..."
+                      className="w-full bg-[#0a1532] border border-sky-950 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-400 leading-relaxed"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-slate-300 mb-1 block font-semibold">مسار / رابط صورة الملعب</label>
+                    <input
+                      type="text"
+                      value={settings?.footballCategoryImage || '/football-pitch.jpg'}
+                      onChange={(e) => setSettings(s => s ? { ...s, footballCategoryImage: e.target.value } : s)}
+                      className="w-full bg-[#0a1532] border border-sky-950 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-sky-400 font-mono"
+                    />
+                  </div>
+                </div>
+
+                {/* Padel Category Section */}
+                <div className="p-4 rounded-2xl bg-[#070e24]/80 border border-sky-900/40 space-y-3">
+                  <div className="flex items-center gap-2 text-sky-400 font-bold text-xs">
+                    <span className="text-base">🎾</span>
+                    <span>قسم ملعب البادل (Padel VIP Section)</span>
+                  </div>
+                  <div>
+                    <label className="text-xs text-slate-300 mb-1 block font-semibold">عنوان القسم</label>
+                    <input
+                      type="text"
+                      value={settings?.padelCategoryTitle || 'ملعب بادل تنس بانوراما (Padel Court)'}
+                      onChange={(e) => setSettings(s => s ? { ...s, padelCategoryTitle: e.target.value } : s)}
+                      className="w-full bg-[#0a1532] border border-sky-950 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-sky-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-slate-300 mb-1 block font-semibold">نص الوصف المعروض للعملاء</label>
+                    <textarea
+                      rows={3}
+                      value={settings?.padelCategoryDesc || 'ملعب بادل زجاجي بانورامي كامل بمواصفات إيطالية عالمية، مع أرضيات Mondo معتمدة، مضارب وكرات مجانية وكافيه ومشروبات VIP.'}
+                      onChange={(e) => setSettings(s => s ? { ...s, padelCategoryDesc: e.target.value } : s)}
+                      placeholder="اكتب وصف ملعب البادل هنا..."
+                      className="w-full bg-[#0a1532] border border-sky-950 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-400 leading-relaxed"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-slate-300 mb-1 block font-semibold">مسار / رابط صورة ملعب البادل</label>
+                    <input
+                      type="text"
+                      value={settings?.padelCategoryImage || '/padel-blue.jpg'}
+                      onChange={(e) => setSettings(s => s ? { ...s, padelCategoryImage: e.target.value } : s)}
+                      className="w-full bg-[#0a1532] border border-sky-950 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-sky-400 font-mono"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className="glass-card p-5 sm:p-6 rounded-3xl border-sky-950/70 bg-[#0a1532]/70 space-y-4">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">💳 طرق الدفع والعربون</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

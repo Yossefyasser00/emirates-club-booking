@@ -68,6 +68,7 @@ const CustomerSite: React.FC = () => {
         <div ref={categoriesRef}>
           <SportsCategoriesSection
             courts={courts}
+            settings={settings}
             onOpenFootballModal={() => {
               const firstFootball = courts.find(c => c.type === 'FIVE_A_SIDE' || c.type === 'SEVEN_A_SIDE') || courts[0];
               handleStartBookingCourt(firstFootball);
